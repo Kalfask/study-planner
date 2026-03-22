@@ -43,15 +43,18 @@ public class CourseService {
         return toResponse(course);
     }
 
-    public CourseDto.CourseResponse updateCourse(String username, CourseDto.CourseRequest courseRequest){
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(()-> new RuntimeException("User not found!"));
-        Course course = new Course();
-        course.setUser(user);
+    public CourseDto.CourseResponse updateCourse(Long id,String username, CourseDto.CourseRequest courseRequest){
+        Course course = courseRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Course not found!"));
+        if(!course.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not Authorized");
+        }
+
         course.setName(courseRequest.getName());
         course.setColor(courseRequest.getColor());
         course.setProfessor(courseRequest.getProfessor());
         course.setSemester(courseRequest.getSemester());
+
         course = courseRepository.save(course);
         return toResponse(course);
     }
