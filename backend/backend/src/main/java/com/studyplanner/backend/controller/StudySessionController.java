@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/sessions")
 public class StudySessionController {
 
-    private StudySessionService studySessionService;
+    private final StudySessionService studySessionService;
 
     public StudySessionController(StudySessionService studySessionService) {
         this.studySessionService = studySessionService;

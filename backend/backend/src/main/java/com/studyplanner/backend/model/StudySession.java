@@ -5,15 +5,15 @@ import jdk.jfr.Enabled;
 
 import java.time.LocalDateTime;
 
-@Enabled
-@Table(name ="study-sessions")
+@Entity
+@Table(name ="studySessions")
 public class StudySession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name="user_id", nullable=false)
+    @JoinColumn(name="user_id", nullable=false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)

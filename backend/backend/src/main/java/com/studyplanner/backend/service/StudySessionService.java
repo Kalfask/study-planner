@@ -30,11 +30,12 @@ public class StudySessionService {
 
     public StudySessionDto.SessionResponse logSession(String username, StudySessionDto.SessionRequest request) {
         User user = findUser(username);
-
+        LocalDateTime startTime = LocalDateTime.now().minusMinutes(request.getDurationMinutes());
         StudySession session = new StudySession();
         session.setUser(user);
         session.setDurationMinutes(request.getDurationMinutes());
         session.setNotes(request.getNotes());
+        session.setStartedAt(startTime);
 
         if (request.getTaskId() != null) {
             Task task = taskRepository.findById(request.getTaskId())

@@ -21,7 +21,7 @@ public interface StudySessionRepository extends JpaRepository<StudySession,Long>
     @Query("SELECT COALESCE(SUM(s.durationMinutes), 0) FROM StudySession s WHERE s.user.id = :userId")
     Integer getTotalMinutesByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT COALESCE(SUM(s.durationMinutes),0) FROM StudySession s WHERE s.user.id = :userId AND s.startedAT BETWEEN :from AND :to")
+    @Query("SELECT COALESCE(SUM(s.durationMinutes),0) FROM StudySession s WHERE s.user.id = :userId AND s.startedAt BETWEEN :from AND :to")
     Integer getTotalMinutesByUserIdAndDateRange(
             @Param("userId") Long userId,
             @Param("from") LocalDateTime from,
