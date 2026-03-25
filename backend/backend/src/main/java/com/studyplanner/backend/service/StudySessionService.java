@@ -7,13 +7,17 @@ import com.studyplanner.backend.model.User;
 import com.studyplanner.backend.repository.StudySessionRepository;
 import com.studyplanner.backend.repository.TaskRepository;
 import com.studyplanner.backend.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import java.time.LocalTime;
 
 @Service
 public class StudySessionService {
@@ -73,7 +77,7 @@ public class StudySessionService {
                 .with(DayOfWeek.MONDAY)
                 .atStartOfDay();
         LocalDateTime now  = LocalDateTime.now();
-        Integer weekMinutes = studySessionRepository.getTotalMinutesByUserIdAndDateRange(userId, weekStart, weekStart);
+        Integer weekMinutes = studySessionRepository.getTotalMinutesByUserIdAndDateRange(userId, weekStart, now);
 
         //Today
 
@@ -82,6 +86,39 @@ public class StudySessionService {
 
         return new StudySessionDto.StatsResponse(totalMinutes,weekMinutes,todayMinutes,sessionCount);
 
+    }
+
+    public StudySessionDto.CustomStatsResponse getCustomStats(
+            String username,
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
+        User user = findUser(username);
+        Long userId = user.getId();
+
+        if (startDate == null || endDate == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Start date and end date are required.");
+        }
+
+        if (endDate.isBefore(startDate)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "End date cannot be before start date.");
+        }
+
+        LocalDateTime from = startDate.atStartOfDay();
+        LocalDateTime to = endDate.atTime(LocalTime.MAX);
+
+        Integer customMinutes = studySessionRepository
+                .getTotalMinutesByUserIdAndDateRange(userId, from, to);
+
+        Integer customSessionCount = studySessionRepository
+                .getSessionCountByUserIdAndDateRange(userId, from, to);
+
+        return new StudySessionDto.CustomStatsResponse(
+                from,
+                to,
+                customMinutes != null ? customMinutes : 0,
+                customSessionCount != null ? customSessionCount : 0
+        );
     }
 
 

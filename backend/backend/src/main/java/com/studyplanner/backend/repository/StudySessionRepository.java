@@ -30,6 +30,18 @@ public interface StudySessionRepository extends JpaRepository<StudySession,Long>
     @Query("SELECT COUNT(s) FROM StudySession s WHERE s.user.id = :userId")
     Integer getSessionCountByUserId(@Param("userId") Long userId);
 
+    @Query("""
+    SELECT COUNT(s)
+    FROM StudySession s
+    WHERE s.user.id = :userId
+      AND s.startedAt BETWEEN :from AND :to
+""")
+    Integer getSessionCountByUserIdAndDateRange(
+            @Param("userId") Long userId,
+            @Param("from") LocalDateTime from,
+            @Param("to") LocalDateTime to
+    );
+
 
 
 }

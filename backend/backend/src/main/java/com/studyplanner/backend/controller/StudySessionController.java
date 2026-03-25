@@ -1,17 +1,25 @@
 package com.studyplanner.backend.controller;
 
 import com.studyplanner.backend.dto.StudySessionDto;
-import com.studyplanner.backend.model.StudySession;
+
 import com.studyplanner.backend.service.StudySessionService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+
+
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/sessions")
@@ -45,6 +53,18 @@ public class StudySessionController {
             @AuthenticationPrincipal UserDetails userDetails)
     {
         return ResponseEntity.ok(studySessionService.getStats(userDetails.getUsername()));
+    }
+
+    @GetMapping("/stats/custom")
+    public ResponseEntity<StudySessionDto.CustomStatsResponse> getCustomStats(
+            Authentication authentication,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        String username = authentication.getName();
+        return ResponseEntity.ok(
+                studySessionService.getCustomStats(username, startDate, endDate)
+        );
     }
 
 

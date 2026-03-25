@@ -129,6 +129,7 @@ public class StudySessionDto {
             this.sessionCount = sessionCount;
         }
 
+
         public Integer getTotalMinutes() {
             return totalMinutes;
         }
@@ -159,6 +160,55 @@ public class StudySessionDto {
 
         public void setSessionCount(Integer sessionCount) {
             this.sessionCount = sessionCount;
+        }
+    }
+
+    public static class CustomStatsResponse {
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
+        private Integer customMinutes;
+        private Integer customSessionCount;
+
+        public CustomStatsResponse() {}
+
+        public CustomStatsResponse(LocalDateTime startDate, LocalDateTime endDate,
+                                   Integer customMinutes, Integer customSessionCount) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.customMinutes = customMinutes;
+            this.customSessionCount = customSessionCount;
+        }
+
+        public LocalDateTime getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(LocalDateTime startDate) {
+            this.startDate = startDate;
+        }
+
+        public LocalDateTime getEndDate() {
+            return endDate;
+        }
+
+        public void setEndDate(LocalDateTime endDate) {
+            this.endDate = endDate;
+        }
+
+        public Integer getCustomMinutes() {
+            return customMinutes;
+        }
+
+        public void setCustomMinutes(Integer customMinutes) {
+            this.customMinutes = customMinutes;
+        }
+
+        public Integer getCustomSessionCount() {
+            return customSessionCount;
+        }
+
+        public void setCustomSessionCount(Integer customSessionCount) {
+            this.customSessionCount = customSessionCount;
         }
     }
 }
