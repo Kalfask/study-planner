@@ -25,47 +25,47 @@ const COLORS = {
 };
 
 const COURSES = [
-  { id: 1, name: "Database Systems", color: "#7C6AFF", professor: "Dr. Papadopoulos", semester: "Spring 2026" },
-  { id: 2, name: "Software Engineering", color: "#3DD68C", professor: "Dr. Alexiou", semester: "Spring 2026" },
-  { id: 3, name: "Computer Networks", color: "#F5A524", professor: "Dr. Nikolaou", semester: "Spring 2026" },
-  { id: 4, name: "Operating Systems", color: "#4A9EF5", professor: "Dr. Stavrou", semester: "Spring 2026" },
-  { id: 5, name: "Linear Algebra", color: "#E45FAA", professor: "Dr. Georgiou", semester: "Spring 2026" },
+  { courseid: 1, name: "Database Systems", color: "#7C6AFF", professor: "Dr. Papadopoulos", semester: "Spring 2026" },
+  { courseid: 2, name: "Software Engineering", color: "#3DD68C", professor: "Dr. Alexiou", semester: "Spring 2026" },
+  { courseid: 3, name: "Computer Networks", color: "#F5A524", professor: "Dr. Nikolaou", semester: "Spring 2026" },
+  { courseid: 4, name: "Operating Systems", color: "#4A9EF5", professor: "Dr. Stavrou", semester: "Spring 2026" },
+  { courseid: 5, name: "Linear Algebra", color: "#E45FAA", professor: "Dr. Georgiou", semester: "Spring 2026" },
 ];
 
 const TASKS = [
-  { id: 1, title: "ER diagram for library system", courseId: 1, deadline: "2026-03-22", priority: "HIGH", status: "IN_PROGRESS" },
-  { id: 2, title: "UML class diagram", courseId: 2, deadline: "2026-03-24", priority: "HIGH", status: "TODO" },
-  { id: 3, title: "TCP/IP protocol analysis", courseId: 3, deadline: "2026-03-26", priority: "MEDIUM", status: "TODO" },
-  { id: 4, title: "Process scheduling simulation", courseId: 4, deadline: "2026-03-28", priority: "MEDIUM", status: "TODO" },
-  { id: 5, title: "SQL normalization exercises", courseId: 1, deadline: "2026-03-21", priority: "HIGH", status: "DONE" },
-  { id: 6, title: "Matrix operations homework", courseId: 5, deadline: "2026-03-30", priority: "LOW", status: "TODO" },
-  { id: 7, title: "Design patterns report", courseId: 2, deadline: "2026-03-20", priority: "MEDIUM", status: "DONE" },
-  { id: 8, title: "Subnetting worksheet", courseId: 3, deadline: "2026-03-25", priority: "LOW", status: "IN_PROGRESS" },
+  { courseid: 1, title: "ER diagram for library system", courseId: 1, deadline: "2026-03-22", priority: "HIGH", status: "IN_PROGRESS" },
+  { courseid: 2, title: "UML class diagram", courseId: 2, deadline: "2026-03-24", priority: "HIGH", status: "TODO" },
+  { courseid: 3, title: "TCP/IP protocol analysis", courseId: 3, deadline: "2026-03-26", priority: "MEDIUM", status: "TODO" },
+  { courseid: 4, title: "Process scheduling simulation", courseId: 4, deadline: "2026-03-28", priority: "MEDIUM", status: "TODO" },
+  { courseid: 5, title: "SQL normalization exercises", courseId: 1, deadline: "2026-03-21", priority: "HIGH", status: "DONE" },
+  { courseid: 6, title: "Matrix operations homework", courseId: 5, deadline: "2026-03-30", priority: "LOW", status: "TODO" },
+  { courseid: 7, title: "Design patterns report", courseId: 2, deadline: "2026-03-20", priority: "MEDIUM", status: "DONE" },
+  { courseid: 8, title: "Subnetting worksheet", courseId: 3, deadline: "2026-03-25", priority: "LOW", status: "IN_PROGRESS" },
 ];
 
 const SESSIONS = [
-  { id: 1, taskId: 1, duration: 45, date: "2026-03-19", notes: "Finished entities" },
-  { id: 2, taskId: 1, duration: 30, date: "2026-03-18", notes: "Started relationships" },
-  { id: 3, taskId: 5, duration: 50, date: "2026-03-17", notes: "3NF exercises" },
-  { id: 4, taskId: 7, duration: 60, date: "2026-03-16", notes: "Observer + Strategy" },
-  { id: 5, taskId: 3, duration: 25, date: "2026-03-19", notes: "Read chapter 4" },
-  { id: 6, taskId: 2, duration: 40, date: "2026-03-15", notes: "Use case diagrams" },
+  { courseid: 1, taskId: 1, duration: 45, date: "2026-03-19", notes: "Finished entities" },
+  { courseid: 2, taskId: 1, duration: 30, date: "2026-03-18", notes: "Started relationships" },
+  { courseid: 3, taskId: 5, duration: 50, date: "2026-03-17", notes: "3NF exercises" },
+  { courseid: 4, taskId: 7, duration: 60, date: "2026-03-16", notes: "Observer + Strategy" },
+  { courseid: 5, taskId: 3, duration: 25, date: "2026-03-19", notes: "Read chapter 4" },
+  { courseid: 6, taskId: 2, duration: 40, date: "2026-03-15", notes: "Use case diagrams" },
 ];
 
 const SCHEDULE = [
-  { id: 1, courseId: 1, day: "Monday", start: "09:00", end: "11:00", location: "Room A3" },
-  { id: 2, courseId: 2, day: "Monday", start: "13:00", end: "15:00", location: "Lab B2" },
-  { id: 3, courseId: 3, day: "Tuesday", start: "10:00", end: "12:00", location: "Room C1" },
-  { id: 4, courseId: 4, day: "Tuesday", start: "14:00", end: "16:00", location: "Lab A1" },
-  { id: 5, courseId: 5, day: "Wednesday", start: "09:00", end: "11:00", location: "Room D4" },
-  { id: 6, courseId: 1, day: "Wednesday", start: "13:00", end: "14:00", location: "Lab B2" },
-  { id: 7, courseId: 2, day: "Thursday", start: "11:00", end: "13:00", location: "Room A3" },
-  { id: 8, courseId: 3, day: "Thursday", start: "15:00", end: "17:00", location: "Lab C1" },
-  { id: 9, courseId: 4, day: "Friday", start: "09:00", end: "11:00", location: "Room A1" },
-  { id: 10, courseId: 5, day: "Friday", start: "13:00", end: "15:00", location: "Room D4" },
+  { courseid: 1, courseId: 1, day: "Monday", start: "09:00", end: "11:00", location: "Room A3" },
+  { courseid: 2, courseId: 2, day: "Monday", start: "13:00", end: "15:00", location: "Lab B2" },
+  { courseid: 3, courseId: 3, day: "Tuesday", start: "10:00", end: "12:00", location: "Room C1" },
+  { courseid: 4, courseId: 4, day: "Tuesday", start: "14:00", end: "16:00", location: "Lab A1" },
+  { courseid: 5, courseId: 5, day: "Wednesday", start: "09:00", end: "11:00", location: "Room D4" },
+  { courseid: 6, courseId: 1, day: "Wednesday", start: "13:00", end: "14:00", location: "Lab B2" },
+  { courseid: 7, courseId: 2, day: "Thursday", start: "11:00", end: "13:00", location: "Room A3" },
+  { courseid: 8, courseId: 3, day: "Thursday", start: "15:00", end: "17:00", location: "Lab C1" },
+  { courseid: 9, courseId: 4, day: "Friday", start: "09:00", end: "11:00", location: "Room A1" },
+  { courseid: 10, courseId: 5, day: "Friday", start: "13:00", end: "15:00", location: "Room D4" },
 ];
 
-const getCourse = (id) => COURSES.find((c) => c.id === id);
+const getCourse = (courseid) => COURSES.find((c) => c.courseid === courseid);
 const priorityColor = (p) => p === "HIGH" ? COLORS.red : p === "MEDIUM" ? COLORS.amber : COLORS.textMuted;
 const priorityBg = (p) => p === "HIGH" ? COLORS.redDim : p === "MEDIUM" ? COLORS.amberDim : "rgba(140,137,148,0.1)";
 const statusColor = (s) => s === "DONE" ? COLORS.green : s === "IN_PROGRESS" ? COLORS.accent : COLORS.textMuted;
@@ -92,11 +92,11 @@ function Icon({ name, size = 18 }) {
 
 function Sidebar({ page, setPage }) {
   const items = [
-    { id: "dashboard", icon: "dashboard", label: "Dashboard" },
-    { id: "courses", icon: "book", label: "Courses" },
-    { id: "tasks", icon: "tasks", label: "Tasks" },
-    { id: "timer", icon: "timer", label: "Timer" },
-    { id: "schedule", icon: "calendar", label: "Schedule" },
+    { courseid: "dashboard", icon: "dashboard", label: "Dashboard" },
+    { courseid: "courses", icon: "book", label: "Courses" },
+    { courseid: "tasks", icon: "tasks", label: "Tasks" },
+    { courseid: "timer", icon: "timer", label: "Timer" },
+    { courseid: "schedule", icon: "calendar", label: "Schedule" },
   ];
   return (
     <div style={{ width: 220, background: COLORS.surface, borderRight: `1px solid ${COLORS.border}`,
@@ -108,14 +108,14 @@ function Sidebar({ page, setPage }) {
       </div>
       <div style={{ flex: 1, padding: "8px 10px" }}>
         {items.map((item) => (
-          <div key={item.id} onClick={() => setPage(item.id)}
+          <div key={item.courseid} onClick={() => setPage(item.courseid)}
             style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 12px",
               borderRadius: 10, cursor: "pointer", marginBottom: 2,
-              background: page === item.id ? COLORS.accentDim : "transparent",
-              color: page === item.id ? COLORS.accent : COLORS.textMuted,
+              background: page === item.courseid ? COLORS.accentDim : "transparent",
+              color: page === item.courseid ? COLORS.accent : COLORS.textMuted,
               transition: "all 0.15s" }}>
             <Icon name={item.icon} size={18} />
-            <span style={{ fontSize: 14, fontWeight: page === item.id ? 600 : 400 }}>{item.label}</span>
+            <span style={{ fontSize: 14, fontWeight: page === item.courseid ? 600 : 400 }}>{item.label}</span>
           </div>
         ))}
       </div>
@@ -176,7 +176,7 @@ function Dashboard() {
           {upcoming.map((t) => {
             const c = getCourse(t.courseId);
             return (
-              <div key={t.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0",
+              <div key={t.courseid} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0",
                 borderBottom: `1px solid ${COLORS.border}` }}>
                 <div style={{ width: 4, height: 32, borderRadius: 2, background: c?.color }} />
                 <div style={{ flex: 1 }}>
@@ -198,10 +198,10 @@ function Dashboard() {
         <div style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`, borderRadius: 14, padding: 20 }}>
           <div style={{ fontSize: 15, fontWeight: 600, color: COLORS.text, marginBottom: 14 }}>Recent study sessions</div>
           {recent.map((s) => {
-            const task = TASKS.find((t) => t.id === s.taskId);
+            const task = TASKS.find((t) => t.courseid === s.taskId);
             const c = task ? getCourse(task.courseId) : null;
             return (
-              <div key={s.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0",
+              <div key={s.courseid} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 0",
                 borderBottom: `1px solid ${COLORS.border}` }}>
                 <div style={{ width: 4, height: 32, borderRadius: 2, background: c?.color }} />
                 <div style={{ flex: 1 }}>
@@ -235,14 +235,14 @@ function CoursesPage() {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
         {COURSES.map((c) => {
-          const taskCount = TASKS.filter((t) => t.courseId === c.id).length;
-          const doneCount = TASKS.filter((t) => t.courseId === c.id && t.status === "DONE").length;
+          const taskCount = TASKS.filter((t) => t.courseId === c.courseid).length;
+          const doneCount = TASKS.filter((t) => t.courseId === c.courseid && t.status === "DONE").length;
           const sessionMins = SESSIONS.filter((s) => {
-            const task = TASKS.find((t) => t.id === s.taskId);
-            return task && task.courseId === c.id;
+            const task = TASKS.find((t) => t.courseid === s.taskId);
+            return task && task.courseId === c.courseid;
           }).reduce((sum, s) => sum + s.duration, 0);
           return (
-            <div key={c.id} style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`,
+            <div key={c.courseid} style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`,
               borderRadius: 14, padding: 20, borderTop: `3px solid ${c.color}`, cursor: "pointer",
               transition: "border-color 0.15s" }}
               onMouseEnter={(e) => e.currentTarget.style.borderColor = c.color}
@@ -307,7 +307,7 @@ function TasksPage() {
         {filtered.map((t) => {
           const c = getCourse(t.courseId);
           return (
-            <div key={t.id} style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`,
+            <div key={t.courseid} style={{ background: COLORS.surface, border: `1px solid ${COLORS.border}`,
               borderRadius: 12, padding: "14px 18px", display: "flex", alignItems: "center", gap: 14 }}>
               <div style={{ width: 20, height: 20, borderRadius: 6,
                 border: t.status === "DONE" ? "none" : `2px solid ${COLORS.borderLight}`,
@@ -430,7 +430,7 @@ function TimerPage() {
           style={{ width: "100%", padding: "8px 10px", borderRadius: 8, border: `1px solid ${COLORS.border}`,
             background: COLORS.bg, color: COLORS.text, fontSize: 13 }}>
           {activeTasks.map((t) => (
-            <option key={t.id} value={t.id}>{t.title} — {getCourse(t.courseId)?.name}</option>
+            <option key={t.courseid} value={t.courseid}>{t.title} — {getCourse(t.courseId)?.name}</option>
           ))}
         </select>
       </div>
