@@ -1,6 +1,7 @@
 package com.studyplanner.backend.service;
 
 import com.studyplanner.backend.dto.ScheduleDto;
+import com.studyplanner.backend.model.Course;
 import com.studyplanner.backend.model.Schedule;
 import com.studyplanner.backend.model.ScheduleSlot;
 import com.studyplanner.backend.model.User;
@@ -8,6 +9,7 @@ import com.studyplanner.backend.repository.CourseRepository;
 import com.studyplanner.backend.repository.ScheduleRepository;
 import com.studyplanner.backend.repository.ScheduleSlotRepository;
 import com.studyplanner.backend.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,7 +52,87 @@ public class ScheduleService {
         return toResponse(schedule);
     }
 
+    @Transactional
+    public ScheduleDto.ScheduleResponse setActiveSchedule(Long id, String username) {
+        User user = findUser(username);
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(()->new RuntimeException("Schedule not found"));
 
+        if(!schedule.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not authorized");
+        }
+
+        //Deactivate all user's schedules first
+        List<Schedule> schedules = scheduleRepository.findByUserIdOrderByNameAsc(user.getId());
+        for (Schedule s : schedules) {
+            s.setActive(false);
+            scheduleRepository.save(s);
+        }
+
+        //Activate the selected one
+        schedule.setActive(true);
+        scheduleRepository.save(schedule);
+
+        return toResponse(schedule);
+    }
+
+    public void deleteSchedule(Long id, String username) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(()->new RuntimeException("Schedule not found"));
+
+        if(!schedule.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not authorized");
+        }
+        scheduleRepository.delete(schedule);
+    }
+
+    //Slot Services
+    public List<ScheduleDto.SlotResponse> getSlots(Long scheduleId, String username) {
+
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new RuntimeException("Schedule not found"));
+
+        if(!schedule.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not authorized");
+        }
+
+        return scheduleSlotRepository.findByScheduleIdOrderByDayOfWeekAscStartTimeAsc(scheduleId)
+                .stream()
+                .map(this::toSlotResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    public ScheduleDto.SlotResponse addSlot(Long scheduleId, String username, ScheduleDto.SlotRequest slotRequest) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new RuntimeException("Schedule not found"));
+        if(!schedule.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not authorized");
+        }
+        ScheduleSlot scheduleSlot = new ScheduleSlot();
+        scheduleSlot.setSchedule(schedule);
+        scheduleSlot.setDayOfWeek(slotRequest.getDayOfWeek());
+        scheduleSlot.setStartTime(slotRequest.getStartTime());
+        scheduleSlot.setEndTime(slotRequest.getEndTime());
+        scheduleSlot.setLocation(slotRequest.getLocation());
+
+        if(slotRequest.getCourseId() != null) {
+            Course course = courseRepository.findById(slotRequest.getCourseId()).orElseThrow(()->new RuntimeException("Course not found"));
+            scheduleSlot.setCourse(course);
+        }
+        scheduleSlot = scheduleSlotRepository.save(scheduleSlot);
+        return toSlotResponse(scheduleSlot);
+    }
+
+    public void removeSlot(Long scheduleId, Long slotId, String username) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(()->new RuntimeException("Schedule not found"));
+        if(!schedule.getUser().getUsername().equals(username)) {
+            throw new RuntimeException("Not authorized");
+        }
+
+        ScheduleSlot slot = scheduleSlotRepository.findById(slotId).orElseThrow(()->new RuntimeException("Schedule not found"));
+
+        if(!slot.getSchedule().getId().equals(schedule.getId())) {
+            throw new RuntimeException("Slot doesn't belong to this Schedule");
+        }
+        scheduleSlotRepository.delete(slot);
+    }
 
     //Helpers
     private User findUser(String username) {
