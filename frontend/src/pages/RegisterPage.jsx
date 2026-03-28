@@ -1,30 +1,32 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
 
-function LoginPage()
+
+function RegisterPage()
 {
-    const [username , setUsername] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-
-        try{
-            const res = await api.post('/auth/login', {username, password});
+        try
+        {
+            const res = await api.post('/auth/register', { username, email, password });
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('username', res.data.username);
-            navigate('/dashboard')
-        }
-        catch(err)
+            navigate('/dashboard');
+        }catch(err)
         {
-            setError('Invalid username or password');
+            setError(err.response?.data?.error || 'Register failed');
         }
-    };
-      const inputStyle = {
+    } 
+    const inputStyle = {
         width: '100%',
         padding: '10px 14px',
         borderRadius: 8,
@@ -34,11 +36,10 @@ function LoginPage()
         fontSize: 13,
         marginBottom: 12,
         boxSizing: 'border-box'
-
     };
 
     return (
-        <div style={{
+    <div style={{
             background: '#0f0f12',
             minHeight: '100vh',
             display: 'flex',
@@ -56,7 +57,7 @@ function LoginPage()
                     StudyPlanner
                 </h1>
                 <p style={{ color: '#8b8994', fontSize: 13, marginBottom: 24 }}>
-                    Sign in to continue
+                    Create your account
                 </p>
 
                 {error && (
@@ -80,8 +81,15 @@ function LoginPage()
                     style={inputStyle}
                 />
                 <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    style={inputStyle}
+                />
+                <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Password (min 6 characters)"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     style={inputStyle}
@@ -97,19 +105,19 @@ function LoginPage()
                     cursor: 'pointer',
                     marginTop: 8
                 }}>
-                    Login
+                    Register
                 </button>
                 <p style={{ textAlign: 'center', marginTop: 16, fontSize: 12, color: '#8b8994' }}>
-                    Don't have an account?{' '}
-                    <Link to="/register" style={{ color: '#7c6aff', textDecoration: 'none' }}>
-                        Register
+                    Already have an account?{' '}
+                    <Link to="/login" style={{ color: '#7c6aff', textDecoration: 'none' }}>
+                        Login
                     </Link>
                 </p>
             </form>
         </div>
     );
 
-  
+};
 
-}
-export default LoginPage;
+
+export default RegisterPage;
