@@ -22,24 +22,26 @@ function ProtectedRoute({children})
 }
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element = {<RegisterPage />}/>
+        <Route path="/" element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Navigate to="/dashboard" />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="courses" element={<CoursesPage />} />
+            <Route path="tasks" element={<TasksPage />} />
+            <Route path="timer" element={<TimerPage />} />
+            <Route path="schedule" element={<SchedulePage />} />
+          </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
