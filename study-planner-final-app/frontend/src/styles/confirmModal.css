@@ -1,0 +1,27 @@
+.confirm-modal-card {
+    max-width: 460px;
+}
+
+.confirm-modal-body {
+    margin-bottom: 8px;
+}
+
+.confirm-modal-body p {
+    margin: 0;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+.danger-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.danger-btn:hover {
+    background: #fecaca;
+}
